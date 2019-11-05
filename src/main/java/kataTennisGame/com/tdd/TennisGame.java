@@ -39,10 +39,12 @@ public class TennisGame {
 					return p1.getAdvantage();
 				if (scoresDiff == -1)
 					return p2.getAdvantage();
+				if(isGameWin()){
 				if (scoresDiff >= 2)
 					return p1.getWinner();
 				else
 					return p2.getWinner();
+			}
 			}
 		}
 		return p1.getCorrespondingScoreValue() + "-" + p2.getCorrespondingScoreValue();
@@ -54,5 +56,9 @@ public class TennisGame {
 
 	private boolean isAdvantage() {
 		return p1.getScore() >= 4 || p2.getScore() >= 4;
+	}
+
+	private boolean isGameWin() {
+		return p1.getScore()-p2.getScore()>=2 || p2.getScore()-p1.getScore()>=2;
 	}
 }

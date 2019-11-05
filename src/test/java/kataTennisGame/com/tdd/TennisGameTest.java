@@ -87,6 +87,7 @@ public class TennisGameTest {
 		p1.winPoint();
 		p2.winPoint();
 		p2.winPoint();
+		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
 		assertEquals("player2 take the advantage", tennis.getScore());
 
@@ -100,7 +101,9 @@ public class TennisGameTest {
 		p1.winPoint();
 		p2.winPoint();
 		p2.winPoint();
+		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
+		assertEquals("player2 take the advantage", tennis.getScore());
 		p2.winPoint();
 		assertEquals("player2 is the winner", tennis.getScore());
 	}
@@ -112,8 +115,11 @@ public class TennisGameTest {
 		p1.winPoint();
 		p2.winPoint();
 		p2.winPoint();
+		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
+		assertEquals("player2 take the advantage", tennis.getScore());
 		p1.winPoint();
 		assertEquals("DEUCE", tennis.getScore());
 	}
+
 }
