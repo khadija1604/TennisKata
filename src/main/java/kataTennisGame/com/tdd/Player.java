@@ -34,4 +34,8 @@ public class Player {
 	public String getWinner() {
 		return this.playerName + " is the winner";
 	}
+
+	public String getAdvantage() {
+		return this.playerName + " take the advantage";
+	}
 }
