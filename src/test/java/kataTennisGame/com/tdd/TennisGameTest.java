@@ -76,7 +76,7 @@ public class TennisGameTest {
     }
     
     @Test 
-    public void scoreShouldBeDeuce(){
+    public void player2ShouldWin(){
     	 p1.winPoint();
     	 p1.winPoint();
     	 p2.winPoint();
