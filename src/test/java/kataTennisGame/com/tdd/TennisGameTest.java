@@ -70,23 +70,19 @@ public class TennisGameTest {
 
 	@Test
 	public void scoreShouldBeDeuce() {
-		p1.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p2.winPoint();
+		for(int i=0;i<3;i++){
+			p1.winPoint();
+			p2.winPoint();
+		}
 		assertEquals("DEUCE", tennis.getScore());
 	}
 
 	@Test
 	public void player2ShouldTakeTheAdvantage() {
-		p1.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p2.winPoint();
+		for(int i=0;i<3;i++){
+			p1.winPoint();
+			p2.winPoint();
+		}
 		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
 		assertEquals("player2 take the advantage", tennis.getScore());
@@ -95,12 +91,10 @@ public class TennisGameTest {
 
 	@Test
 	public void player2ShouldBeTheWinner() {
-		p1.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p2.winPoint();
+		for(int i=0;i<3;i++){
+			p1.winPoint();
+			p2.winPoint();
+		}
 		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
 		assertEquals("player2 take the advantage", tennis.getScore());
@@ -109,17 +103,26 @@ public class TennisGameTest {
 	}
 	@Test
 	public void scoreSouldBeDeuceAfterAdvantageifPlayer2LosePoint(){
-		p1.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p1.winPoint();
-		p2.winPoint();
-		p2.winPoint();
+		for(int i=0;i<3;i++){
+			p1.winPoint();
+			p2.winPoint();
+		}
 		assertEquals("DEUCE", tennis.getScore());
 		p2.winPoint();
 		assertEquals("player2 take the advantage", tennis.getScore());
 		p1.winPoint();
 		assertEquals("DEUCE", tennis.getScore());
 	}
-
+	@Test
+	public void player2ShouldWonSetifHeIstheW(){
+		for(int i=0;i<3;i++){
+			p1.winPoint();
+			p2.winPoint();
+		}
+		assertEquals("DEUCE", tennis.getScore());
+		p2.winPoint();
+		assertEquals("player2 take the advantage", tennis.getScore());
+		p1.winPoint();
+		assertEquals("DEUCE", tennis.getScore());
+	}
 }
