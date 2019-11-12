@@ -1,4 +1,4 @@
-package kataTennisGame.com.tdd;
+package kataTennisGame.com.tdd.domain;
 
 import java.util.Arrays;
 import java.util.List;
@@ -8,6 +8,7 @@ public class Player {
 	//game score
 	private int score;
 	private int setScore;
+	private int tieBreakScore;
 	
 	public static final List<String> possibleScores = Arrays.asList("0", "15", "30", "40");
 
@@ -31,6 +32,15 @@ public class Player {
 	public void setSetScore(int setScore) {
 		this.setScore = setScore;
 	}
+	
+	public int getTieBreakScore() {
+		return tieBreakScore;
+	}
+
+	public void setTieBreakScore(int tieBreakScore) {
+		this.tieBreakScore = tieBreakScore;
+	}
+
 	// the score change when player win a point
 	public void winPoint() {
 		this.score++;

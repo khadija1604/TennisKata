@@ -1,10 +1,12 @@
 /**
  * 
  */
-package kataTennisGame.com.tdd;
+package kataTennisGame.com.tdd.score;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import kataTennisGame.com.tdd.domain.Player;
 
 /**
  * @author khadija
@@ -15,6 +17,7 @@ public class TennisGame {
 	private Player p1;
 	private Player p2;
 	private Player theSetWinner;
+	private Player theMatchWinner;
 	private final Map<String, Player> playersArray = new HashMap<String, Player>();
 
 	/**
@@ -35,6 +38,14 @@ public class TennisGame {
 
 	public void setTheSetWinner(Player theSetWinner) {
 		this.theSetWinner = theSetWinner;
+	}
+
+	public Player getTheMatchWinner() {
+		return theMatchWinner;
+	}
+
+	public void setTheMatchWinner(Player theMatchWinner) {
+		this.theMatchWinner = theMatchWinner;
 	}
 
 	/**
@@ -74,53 +85,85 @@ public class TennisGame {
 	 * @param player
 	 */
 	private void manageSetScore(Player p) {
-		int currentGameScore = p.getSetScore();
+		int currentsetScore = p.getSetScore();
 		Player theOpenent = getTheOpenent(p.getPlayerName());
-		int newSetScore = nextScore(currentGameScore);
-		System.out.println(newSetScore);
+		int currentTieBreakScore = p.getTieBreakScore();
+		int newSetScore = nextScore(currentsetScore);
+		int newTieBreakScore = nextScore(currentTieBreakScore);
 		if (newSetScore >= 6) {
 			if (theOpenent.getSetScore() <= 4) {
 				setTheSetWinner(p);
-				System.out.println(theSetWinner);
 				p.setSetScore(newSetScore);
 			} else if (theOpenent.getSetScore() == 5) {
 				if (newSetScore >= 7) {
 					setTheSetWinner(p);
 					p.setSetScore(newSetScore);
-					System.out.println(theSetWinner);
-				} else
-					p.setSetScore(newSetScore);
+				}
+			} else if (currentsetScore >= 6 && theOpenent.getSetScore() >= 6) {
+				System.out.println("Tie break score activated " + newTieBreakScore);
+				p.setTieBreakScore(newTieBreakScore);
+				if (p.getTieBreakScore() >= 7 && p.getTieBreakScore() - theOpenent.getTieBreakScore() > 2) {
+					setTheSetWinner(p);
+					setTheMatchWinner(p);
+				}
 			} else
 				p.setSetScore(newSetScore);
-
 		} else
 			p.setSetScore(newSetScore);
-		System.out.println("set score" + p.getSetScore());
+		System.out.println("player " + p.getSetScore());
+		System.out.println("openent " + theOpenent.getSetScore());
 
 	}
 
+	/**
+	 * the DEUCE case
+	 * 
+	 * @param p1
+	 * @param p2
+	 */
 	private boolean isDeuce(Player p1, Player p2) {
 		return p1.getScore() == p2.getScore();
 	}
 
+	/**
+	 * the advantage case
+	 */
 	private boolean isAdvantage() {
 		return p1.getScore() >= 4 || p2.getScore() >= 4;
 	}
 
+	/**
+	 * the win game case
+	 * 
+	 */
 	private boolean isGameWin() {
 		return p1.getScore() - p2.getScore() >= 2 || p2.getScore() - p1.getScore() >= 2;
 	}
 
+	/**
+	 * reset game scores
+	 * 
+	 */
 	private void resetGameScore() {
 		this.p1.resetScore();
 		this.p2.resetScore();
 	}
 
+	/**
+	 * the insrease score
+	 * 
+	 * @param score
+	 */
 	private int nextScore(int score) {
 		score = score + 1;
 		return score;
 	}
 
+	/**
+	 * get the current player oponent
+	 * 
+	 * @param name
+	 */
 	private Player getTheOpenent(String name) {
 		for (String playerName : playersArray.keySet().toArray(new String[0])) {
 			if (!playerName.equals(name))
@@ -129,12 +172,25 @@ public class TennisGame {
 		return null;
 	}
 
+	/**
+	 * make a player join the game
+	 * 
+	 * @param player
+	 */
 	public void joinThegame(Player player) {
-		if (playersArray.size() < 2) playersArray.put(player.getPlayerName(), player);
-		else throw new RuntimeException("The game is between two players");
+		if (playersArray.size() < 2)
+			playersArray.put(player.getPlayerName(), player);
+		else
+			throw new RuntimeException("The game is between two players");
 	}
 
+	/**
+	 * clear SET & MATCH winner
+	 * 
+	 */
 	private void clearMatch() {
 		setTheSetWinner(null);
+		setTheSetWinner(null);
 	}
+
 }
